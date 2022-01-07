@@ -42,7 +42,7 @@ public class Membre {
 	 * Idée : On note de 1 à 10 un utilisateur, sa réputation sera la moyenne de toutes les notes qu'il aura reçues
 	 * 
 	 * */
-	public void chagerReputation(Membre m){
+	public void changerReputation(Membre m){
 		//TODO
 	}
 
@@ -75,6 +75,18 @@ public class Membre {
 	}
 	
 	
+	/**
+	 * Méthode pour se connecter renvoie true si le membre arrive à se connecter, False sinon.
+	 * */
+	public boolean seConnecter(String pseudo, String password){
+		System.out.println("Pseudo : " + this.pseudo + " pseudo saisi = " + pseudo);
+		System.out.println("Pseudo : " + this.password + " pseudo saisi = " + password);
+		if(this.pseudo.equals(pseudo) && this.password.equals(password)){
+			
+			return true;
+		}
+		return false;
+	}
 	
 	
 	
