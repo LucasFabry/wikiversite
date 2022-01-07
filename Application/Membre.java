@@ -13,33 +13,33 @@ public class Membre {
 	
 	/**
 	 * 
-	 * Pour créer des membres ici on utilisera le patron de conception fabrique
+	 * Pour crÃ©er des membres ici on utilisera le patron de conception fabrique
 	 * 
 	 * */
 	public Membre(String pseudo, String password) {
-		//Penser à mettre la vérification de l'unicité du pseudo
+		//Penser Ã  mettre la vÃ©rification de l'unicitÃ© du pseudo
 		this.pseudo = pseudo;
-		//On peut mettre une validation de password (ex : plus de 4 caractères, une majuscule, etc.) 
+		//On peut mettre une validation de password (ex : plus de 4 caractÃ¨res, une majuscule, etc.) 
 		this.password = password;
-		//On commence avec une réputation nulle;
+		//On commence avec une rÃ©putation nulle;
 		this.niveauReputation = 0;
 		this.fenetreMembre = new FenetreMembre(this);
 	}
 	
 	/**
 	 * 
-	 * Méthode pour modifier le contenu d'un cours
+	 * MÃ©thode pour modifier le contenu d'un cours
 	 * 
 	 * */
 	public void modifierContenuChapitre(Chapitre chapitre, String texteModifie){
-		//Penser à créer un pattern Logger pour savoir qui modifie quoi etc...
+		//Penser Ã  crÃ©er un pattern Logger pour savoir qui modifie quoi etc...
 		chapitre.setContenuChapitre(texteModifie);
 	}
 	
 	/**
 	 * 
-	 * Méthode pour changer la réputation d'un membre
-	 * Idée : On note de 1 à 10 un utilisateur, sa réputation sera la moyenne de toutes les notes qu'il aura reçues
+	 * MÃ©thode pour changer la rÃ©putation d'un membre
+	 * IdÃ©e : On note de 1 Ã  10 un utilisateur, sa rÃ©putation sera la moyenne de toutes les notes qu'il aura reÃ§ues
 	 * 
 	 * */
 	public void changerReputation(Membre m){
@@ -76,13 +76,13 @@ public class Membre {
 	
 	
 	/**
-	 * Méthode pour se connecter renvoie true si le membre arrive à se connecter, False sinon.
+	 * MÃ©thode pour se connecter renvoie true si le membre arrive Ã  se connecter, False sinon.
 	 * */
 	public boolean seConnecter(String pseudo, String password){
 		System.out.println("Pseudo : " + this.pseudo + " pseudo saisi = " + pseudo);
 		System.out.println("Pseudo : " + this.password + " pseudo saisi = " + password);
-		if(this.pseudo.equals(pseudo) && this.password.equals(password)){
-			
+		if(this.pseudo.equals(pseudo) && this.password.equals(password) && Serveur.getInstance().getListeMembresBannis().contains(pseudo)==false){
+		/**pseudo unique**/	
 			return true;
 		}
 		return false;
