@@ -33,6 +33,10 @@ public final class Serveur {
 		this.membresCo.add(m);
 	}
 	
+	public ArrayList getListeMembresBannis(){
+		return this.listeMembresBannis;
+	}
+	
 	public void bannirMembre(Membre m){
 		this.listeMembresBannis.add(m);
 		this.listeMembres.remove(m);
