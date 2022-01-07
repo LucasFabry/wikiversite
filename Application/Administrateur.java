@@ -11,23 +11,23 @@ public class Administrateur extends Membre {
 	
 	/**
 	 * 
-	 * Méthode pour bannir un membre
-	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
-	 * cette méthode retire simplement un membre de la liste
+	 * MÃ©thode pour bannir un membre
+	 * IdÃ©e : penser Ã  crÃ©er un concierge (comme l'an dernier) qui gÃ¨re la liste des membres
+	 * cette mÃ©thode retire simplement un membre de la liste
 	 * 
 	 * */
 	public void bannirMembre(Membre m){
-		//TODO
+		Serveur.getInstance().bannirMembre(m);
 	}
 	/**
 	 * 
-	 * Méthode pour bannir un membre
-	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
-	 * cette méthode permet de certifier un membre
+	 * MÃ©thode pour bannir un membre
+	 * IdÃ©e : penser Ã  crÃ©er un concierge (comme l'an dernier) qui gÃ¨re la liste des membres
+	 * cette mÃ©thode permet de certifier un membre
 	 * 
 	 * */
 	public void certifierMembre(Membre m){
-		//TODO
+		Serveur.getInstance().certifierMembre(m);
 	}
 	
 	public void bannirIP(String ipAdress){
