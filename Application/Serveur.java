@@ -1,59 +1,75 @@
 package Application;
 
+import interfaceGraphique.FenetreServeur;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /*
  * 
- * Classe qui g√®re les connexions, les listes de connect√©s, etc...
+ * Classe qui gËre les connexions, les listes de connectÈs, etc...
  * Singleton
  * **/
 
 public final class Serveur {
 	private static Serveur instance;
-	private ArrayList membresCo = new ArrayList<Membre>();
-	private ArrayList listeMembres = new ArrayList<Membre>();
-	private ArrayList listeMembresBannis = new ArrayList<Membre>();
-	private ArrayList listeMembreCertifie = new ArrayList<MembreCertifie>();
+	private ArrayList<Membre> membresCo = new ArrayList<Membre>();
+	private ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+	private ArrayList<Membre> listeMembresBannis = new ArrayList<Membre>();
+	private ArrayList<MembreCertifie> listeMembreCertifie = new ArrayList<MembreCertifie>();
 	
-	public Serveur(){
-		if (instance == null) {
-            instance = new Serveur();
-        }
-	}
+	private Serveur(){}
 	
 	public static Serveur getInstance() {
         if (instance == null) {
             instance = new Serveur();
+            
         }
+        //On crÈe une fenÍtre serveur qui permet aux membres de se connecter.
+        new FenetreServeur(instance);
         return instance;
     }
+	
+	public void inscrireUnMembre(Membre m){
+		this.listeMembres.add(m);
+	}
+	
+
+	/**
+	 * 
+	 * MÈthode qui permet de savoir si un membre avec le bon pseudo et le bon password existe dans la liste des membres.
+	 * Retourne : le membre s'il existe, null sinon
+	 * */
+	public Membre seConnecter(String pseudo, String password){
+		for(int i=0; i<listeMembres.size(); i++){
+			if((listeMembres.get(i)).getPassword().equals(password) && listeMembres.get(i).getPseudo().equals(pseudo)){
+				return listeMembres.get(i);
+			}
+		}
+		return null;
+	}
 	
 	public void connecterUnMembre(Membre m){
 		this.membresCo.add(m);
 	}
 	
-	public ArrayList getListeMembresBannis(){
-		return this.listeMembresBannis;
+	
+	//Retourne la liste des connectÈs
+	public ArrayList<Membre> getListeCo(){
+		return this.membresCo;
 	}
 	
-	public void bannirMembre(Membre m){
-		this.listeMembresBannis.add(m);
-		this.listeMembres.remove(m);
-		
+	//Retourne la liste des inscrits
+	public ArrayList<Membre> getListeInscrit(){
+		return this.listeMembres;
 	}
-	/**
-	 * 
-	 * M√©thode pour bannir un membre
-	 * Id√©e : penser √† cr√©er un concierge (comme l'an dernier) qui g√®re la liste des membres
-	 * cette m√©thode permet de certifier un membre
-	 * 
-	 * */
-	public void certifierMembre(Membre m){
-		//TODO
-		MembreCertifie mc = new MembreCertifie(m.getPseudo(), m.getPassword());
-		this.listeMembreCertifie.add(m);
-		m=null;
-	}	
+	
+	//Bannir un membre
+	
+	
+	//Membres certifiÈs
+	
+	
 
 }

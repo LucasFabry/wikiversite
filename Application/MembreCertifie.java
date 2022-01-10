@@ -1,5 +1,5 @@
 package Application;
-import interfaceGraphique.FenetreMembre;
+import interfaceGraphique.FenetreServeur;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class MembreCertifie extends Membre {
 	private ArrayList listeCoursCertifie = new ArrayList<Cours>(); //Liste des cours où l'utilisateur est certifié
 	
-	public MembreCertifie(String pseudo, String password) {
-		super(pseudo, password);
+	public MembreCertifie(String pseudo, String password, Serveur serveur) {
+		super(pseudo, password, serveur);
 		// TODO Auto-generated constructor stub
 	}
 	

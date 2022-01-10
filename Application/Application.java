@@ -5,10 +5,13 @@ public class Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Bonjour");
-		Membre m = new Membre("A", "password");
-		//Administrateur a = new Administrateur("Lucas Fabry", "motdepasse");
-		//a.certifierMembre(m);
+		Serveur s = Serveur.getInstance();
+		FabriqueMembre fm = FabriqueMembre.getInstance();
+		s.inscrireUnMembre(fm.getMembre("Membre", "A", "password", s));
+		System.out.println(s.getListeInscrit());
+		s.inscrireUnMembre(fm.getMembre("Administrateur", "A", "password", s));
+		
+		
 	}
 
 }

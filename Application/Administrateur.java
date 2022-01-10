@@ -1,33 +1,33 @@
 package Application;
 
-import interfaceGraphique.FenetreMembre;
+import interfaceGraphique.FenetreServeur;
 
 public class Administrateur extends Membre {
 
-	public Administrateur(String pseudo, String password) {
-		super(pseudo, password);
+	public Administrateur(String pseudo, String password, Serveur serveur) {
+		super(pseudo, password, serveur);
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * 
-	 * MÃ©thode pour bannir un membre
-	 * IdÃ©e : penser Ã  crÃ©er un concierge (comme l'an dernier) qui gÃ¨re la liste des membres
-	 * cette mÃ©thode retire simplement un membre de la liste
+	 * Méthode pour bannir un membre
+	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
+	 * cette méthode retire simplement un membre de la liste
 	 * 
 	 * */
 	public void bannirMembre(Membre m){
-		Serveur.getInstance().bannirMembre(m);
+		//TODO
 	}
 	/**
 	 * 
-	 * MÃ©thode pour bannir un membre
-	 * IdÃ©e : penser Ã  crÃ©er un concierge (comme l'an dernier) qui gÃ¨re la liste des membres
-	 * cette mÃ©thode permet de certifier un membre
+	 * Méthode pour bannir un membre
+	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
+	 * cette méthode permet de certifier un membre
 	 * 
 	 * */
 	public void certifierMembre(Membre m){
-		Serveur.getInstance().certifierMembre(m);
+		//TODO
 	}
 	
 	public void bannirIP(String ipAdress){

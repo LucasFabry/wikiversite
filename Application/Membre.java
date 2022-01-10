@@ -2,44 +2,46 @@ package Application;
 
 import java.util.ArrayList;
 
-import interfaceGraphique.FenetreMembre;
+import interfaceGraphique.FenetreServeur;
 
 public class Membre {
 	private String pseudo;
 	private String password;
 	private int niveauReputation;
-	private FenetreMembre fenetreMembre;
+	private FenetreServeur fenetreMembre;
 	private ArrayList listeCoursFav = new ArrayList<Cours>();
+	private Serveur serveur;
 	
 	/**
 	 * 
-	 * Pour crÃ©er des membres ici on utilisera le patron de conception fabrique
+	 * Pour créer des membres ici on utilisera le patron de conception fabrique
 	 * 
 	 * */
-	public Membre(String pseudo, String password) {
-		//Penser Ã  mettre la vÃ©rification de l'unicitÃ© du pseudo
+	public Membre(String pseudo, String password, Serveur serveur) {
+		//Penser à mettre la vérification de l'unicité du pseudo
 		this.pseudo = pseudo;
-		//On peut mettre une validation de password (ex : plus de 4 caractÃ¨res, une majuscule, etc.) 
+		//On peut mettre une validation de password (ex : plus de 4 caractères, une majuscule, etc.) 
 		this.password = password;
-		//On commence avec une rÃ©putation nulle;
+		//On commence avec une réputation nulle;
 		this.niveauReputation = 0;
-		this.fenetreMembre = new FenetreMembre(this);
+		
+		this.serveur = serveur;
 	}
 	
 	/**
 	 * 
-	 * MÃ©thode pour modifier le contenu d'un cours
+	 * Méthode pour modifier le contenu d'un cours
 	 * 
 	 * */
 	public void modifierContenuChapitre(Chapitre chapitre, String texteModifie){
-		//Penser Ã  crÃ©er un pattern Logger pour savoir qui modifie quoi etc...
+		//Penser à créer un pattern Logger pour savoir qui modifie quoi etc...
 		chapitre.setContenuChapitre(texteModifie);
 	}
 	
 	/**
 	 * 
-	 * MÃ©thode pour changer la rÃ©putation d'un membre
-	 * IdÃ©e : On note de 1 Ã  10 un utilisateur, sa rÃ©putation sera la moyenne de toutes les notes qu'il aura reÃ§ues
+	 * Méthode pour changer la réputation d'un membre
+	 * Idée : On note de 1 à 10 un utilisateur, sa réputation sera la moyenne de toutes les notes qu'il aura reçues
 	 * 
 	 * */
 	public void changerReputation(Membre m){
@@ -76,13 +78,12 @@ public class Membre {
 	
 	
 	/**
-	 * MÃ©thode pour se connecter renvoie true si le membre arrive Ã  se connecter, False sinon.
+	 * Méthode pour se connecter renvoie true si le membre arrive à se connecter, False sinon.
 	 * */
 	public boolean seConnecter(String pseudo, String password){
 		System.out.println("Pseudo : " + this.pseudo + " pseudo saisi = " + pseudo);
 		System.out.println("Pseudo : " + this.password + " pseudo saisi = " + password);
-		if(this.pseudo.equals(pseudo) && this.password.equals(password) && Serveur.getInstance().getListeMembresBannis().contains(pseudo)==false){
-		/**pseudo unique**/	
+		if(this.pseudo.equals(pseudo) && this.password.equals(password)){
 			return true;
 		}
 		return false;
