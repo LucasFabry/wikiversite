@@ -15,22 +15,34 @@ public class FabriqueMembre {
 
 	 public Membre getMembre(String typeMembre, String pseudo, String password, Serveur s) {
 		 /*
-		  * Boucle pour s'assurer de l'unicité du pseudo
+		  * Boucle pour s'assurer de l'unicitï¿½ du pseudo
 		  * **/
 		 for(int i = 0; i<s.getListeInscrit().size(); i++){
-			 if(s.getListeInscrit().get(i).getPseudo() == pseudo){
-				 pseudo = pseudo + this.genererChaineAleatoire(); //Si le pseudo existe on génère un pseudo aléatoire
+			 if(s.getListeInscrit().get(i).getPseudo().equals(pseudo)){
+				 pseudo = pseudo + this.genererChaineAleatoire(); //Si le pseudo existe on gÃ©nÃ¨re un pseudo alï¿½atoire
+				 
 			 }
 		 }
 		 
 		 /**
-		  * Création du membre
+		  * Crï¿½ation du membre
 		  * */
-	     if (typeMembre.equals("Membre certifié"))
-	         return new MembreCertifie(pseudo, password, s);
-	     else if (typeMembre.equals("Administrateur"))
-	          return new Administrateur(pseudo, password, s);
-	     return new Membre(pseudo, password, s);
+		 
+		 Membre m;
+	     if (typeMembre.equals("1")) {
+	    	 m = new MembreCertifie(pseudo, password, s);
+	     	 s.inscrireUnMembre(m);
+	         return m;
+	     }
+	    	 
+	     else if (typeMembre.equals("2")) {
+	    	 m = new Administrateur(pseudo, password, s);
+	     	 s.inscrireUnMembre(m);
+	         return m;
+	     }
+	     m = new Membre(pseudo, password, s);
+     	 s.inscrireUnMembre(m);
+         return m;
 	   }
 	 
 	 private String genererChaineAleatoire(){

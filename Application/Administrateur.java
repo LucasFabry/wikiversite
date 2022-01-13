@@ -11,9 +11,9 @@ public class Administrateur extends Membre {
 	
 	/**
 	 * 
-	 * Méthode pour bannir un membre
-	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
-	 * cette méthode retire simplement un membre de la liste
+	 * Mï¿½thode pour bannir un membre
+	 * Idï¿½e : penser ï¿½ crï¿½er un concierge (comme l'an dernier) qui gï¿½re la liste des membres
+	 * cette mï¿½thode retire simplement un membre de la liste
 	 * 
 	 * */
 	public void bannirMembre(Membre m){
@@ -21,9 +21,9 @@ public class Administrateur extends Membre {
 	}
 	/**
 	 * 
-	 * Méthode pour bannir un membre
-	 * Idée : penser à créer un concierge (comme l'an dernier) qui gère la liste des membres
-	 * cette méthode permet de certifier un membre
+	 * Mï¿½thode pour bannir un membre
+	 * Idï¿½e : penser ï¿½ crï¿½er un concierge (comme l'an dernier) qui gï¿½re la liste des membres
+	 * cette mï¿½thode permet de certifier un membre
 	 * 
 	 * */
 	public void certifierMembre(Membre m){

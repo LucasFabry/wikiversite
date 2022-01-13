@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 /*
  * 
- * Classe qui gère les connexions, les listes de connectés, etc...
+ * Classe qui gï¿½re les connexions, les listes de connectï¿½s, etc...
  * Singleton
  * **/
 
@@ -18,18 +18,22 @@ public final class Serveur {
 	private ArrayList<Membre> listeMembres = new ArrayList<Membre>();
 	private ArrayList<Membre> listeMembresBannis = new ArrayList<Membre>();
 	private ArrayList<MembreCertifie> listeMembreCertifie = new ArrayList<MembreCertifie>();
+	private ArrayList<Cours> listeCoursDispo = new ArrayList<Cours>();
 	
 	private Serveur(){}
 	
 	public static Serveur getInstance() {
         if (instance == null) {
             instance = new Serveur();
-            
+            new FenetreServeur(instance);
         }
-        //On crée une fenêtre serveur qui permet aux membres de se connecter.
-        new FenetreServeur(instance);
+    
         return instance;
     }
+	
+	public void genererFenetre() {
+		new FenetreServeur(instance);
+	}
 	
 	public void inscrireUnMembre(Membre m){
 		this.listeMembres.add(m);
@@ -38,7 +42,7 @@ public final class Serveur {
 
 	/**
 	 * 
-	 * Méthode qui permet de savoir si un membre avec le bon pseudo et le bon password existe dans la liste des membres.
+	 * Mï¿½thode qui permet de savoir si un membre avec le bon pseudo et le bon password existe dans la liste des membres.
 	 * Retourne : le membre s'il existe, null sinon
 	 * */
 	public Membre seConnecter(String pseudo, String password){
@@ -55,7 +59,7 @@ public final class Serveur {
 	}
 	
 	
-	//Retourne la liste des connectés
+	//Retourne la liste des connectï¿½s
 	public ArrayList<Membre> getListeCo(){
 		return this.membresCo;
 	}
@@ -65,11 +69,61 @@ public final class Serveur {
 		return this.listeMembres;
 	}
 	
+	//Retourne la liste des bannis
+	public ArrayList<Membre> getListeBannis(){
+		return this.listeMembres;
+	}
 	//Bannir un membre
+	public void bannirUnMembre(Membre m){
+		this.listeMembresBannis.add(m);
+		this.listeMembres.remove(m);
+	}
 	
+	/*
+	 * Cette mÃ©thode permet d'ajouter un cours
+	 * **/
+	public void ajouterCours(Cours c) {
+		this.listeCoursDispo.add(c);
+	}
 	
-	//Membres certifiés
+	/**
+	 * 
+	 * Getter de la liste des cours
+	 * */
 	
+	public ArrayList<Cours> getListeCours(){
+		return this.listeCoursDispo;
+	}
+	
+	public void supprimerCours(Cours c) {
+		this.listeCoursDispo.remove(c);
+	}
+	
+	//RÃ©cupÃ©rer un cours par le nom
+	public Cours getCoursByName(String nomCours) {
+		for(int i=0; i<this.listeCoursDispo.size(); i++) {
+			if(nomCours.equals(listeCoursDispo.get(i).getNomCours())){
+				return listeCoursDispo.get(i);
+			}
+		}
+		return null;
+	}
+	
+	//Retourne faux si le nom est pris
+		//Retourne vrai si le nom est disponible
+		public boolean nomDispo(String nomCours) {
+			for(int i = 0; i<Serveur.getInstance().getListeCours().size(); i++) {
+				if(nomCours.equals(Serveur.getInstance().getListeCours().get(i).getNomCours())) { //Si le nom du cours existe dÃ©jÃ 
+					return false;
+				}
+			}
+			return true;
+		}
+	
+	//Membre CertifiÃ©
 	
 
+	
+	
 }
+

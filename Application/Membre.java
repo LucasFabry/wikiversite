@@ -9,20 +9,20 @@ public class Membre {
 	private String password;
 	private int niveauReputation;
 	private FenetreServeur fenetreMembre;
-	private ArrayList listeCoursFav = new ArrayList<Cours>();
+	private ArrayList<Cours> listeCoursFav = new ArrayList<Cours>();
 	private Serveur serveur;
 	
 	/**
 	 * 
-	 * Pour créer des membres ici on utilisera le patron de conception fabrique
+	 * Pour crï¿½er des membres ici on utilisera le patron de conception fabrique
 	 * 
 	 * */
 	public Membre(String pseudo, String password, Serveur serveur) {
-		//Penser à mettre la vérification de l'unicité du pseudo
+		//Penser Ã  mettre la vï¿½rification de l'unicitï¿½ du pseudo
 		this.pseudo = pseudo;
-		//On peut mettre une validation de password (ex : plus de 4 caractères, une majuscule, etc.) 
+		//On peut mettre une validation de password (ex : plus de 4 caractï¿½res, une majuscule, etc.) 
 		this.password = password;
-		//On commence avec une réputation nulle;
+		//On commence avec une rï¿½putation nulle;
 		this.niveauReputation = 0;
 		
 		this.serveur = serveur;
@@ -30,18 +30,18 @@ public class Membre {
 	
 	/**
 	 * 
-	 * Méthode pour modifier le contenu d'un cours
+	 * Mï¿½thode pour modifier le contenu d'un cours
 	 * 
 	 * */
 	public void modifierContenuChapitre(Chapitre chapitre, String texteModifie){
-		//Penser à créer un pattern Logger pour savoir qui modifie quoi etc...
+		//Penser ï¿½ crï¿½er un pattern Logger pour savoir qui modifie quoi etc...
 		chapitre.setContenuChapitre(texteModifie);
 	}
 	
 	/**
 	 * 
-	 * Méthode pour changer la réputation d'un membre
-	 * Idée : On note de 1 à 10 un utilisateur, sa réputation sera la moyenne de toutes les notes qu'il aura reçues
+	 * Mï¿½thode pour changer la rï¿½putation d'un membre
+	 * Idï¿½e : On note de 1 ï¿½ 10 un utilisateur, sa rï¿½putation sera la moyenne de toutes les notes qu'il aura reï¿½ues
 	 * 
 	 * */
 	public void changerReputation(Membre m){
@@ -73,12 +73,19 @@ public class Membre {
 	}
 
 	public void ajouterFavori(Cours c){
-		this.listeCoursFav.add(c);
+		//On vÃ©rifie que le cours n'est pas dÃ©jÃ  dans les favoris
+		if(!(listeCoursFav.contains(c))) {
+			this.listeCoursFav.add(c);
+		}
+		
 	}
 	
+	public ArrayList<Cours> getListeFavoris(){
+		return this.listeCoursFav;
+	}
 	
 	/**
-	 * Méthode pour se connecter renvoie true si le membre arrive à se connecter, False sinon.
+	 * Mï¿½thode pour se connecter renvoie true si le membre arrive ï¿½ se connecter, False sinon.
 	 * */
 	public boolean seConnecter(String pseudo, String password){
 		System.out.println("Pseudo : " + this.pseudo + " pseudo saisi = " + pseudo);

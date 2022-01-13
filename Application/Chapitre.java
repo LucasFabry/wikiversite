@@ -7,7 +7,7 @@ public class Chapitre {
 	
 	/**
 	 * 
-	 * On crée un chapite avec un cours, un titre et un contenu (peut être vide au début)
+	 * On crï¿½e un chapite avec un cours, un titre et un contenu (peut ï¿½tre vide au dï¿½but)
 	 * 
 	 * */
 	public Chapitre(Cours cours, String titreChapitre, String contenuChapitre) {
@@ -21,7 +21,9 @@ public class Chapitre {
 		return cours;
 	}
 
-
+	public void attribuerCours() {
+		this.cours.setListeChap(this);
+	}
 	public void setCours(Cours cours) {
 		this.cours = cours;
 	}

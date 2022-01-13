@@ -27,16 +27,18 @@ public class FenetreServeur extends JFrame implements ActionListener {
 	
 	/**
 	 * 
-	 * Classe qui permet de générer l'affichage graphique d'un membre
+	 * Classe qui permet de gï¿½nï¿½rer l'affichage graphique d'un membre
 	 * 
 	 * */
 	
 	private JButton boutonConnexion = new JButton("Se connecter");
-	private JButton creerCompte = new JButton("Créer un compte");
-	private JButton listeMembre = new JButton("Actualiser liste membre");
+	private JButton creerCompte = new JButton("Crï¿½er un compte");
+	private JButton actualiser = new JButton("Actualiser liste membre");
+	private JButton bannirMembre = new JButton("Bannir un membre");
 	private JTextField pseudoChamp = new JTextField("");
 	private JTextField passwordChamp = new JTextField("");
-	private JList<String> pseudos;
+	private JTextField typeMembre = new JTextField("");
+	private JList<String> jl;
 	private DefaultListModel<String> model = new DefaultListModel<>();
 	
 	private Serveur s;
@@ -44,7 +46,7 @@ public class FenetreServeur extends JFrame implements ActionListener {
 	public FenetreServeur(Serveur s){
 		this.s = s;
 		
-		this.setTitle("Fenêtre de connexion");
+		this.setTitle("FenÃ©tre de connexion");
 	    this.setSize(700, 500);
 	    this.setLocationRelativeTo(null);  
 	    this.setLayout(new BorderLayout());
@@ -58,17 +60,22 @@ public class FenetreServeur extends JFrame implements ActionListener {
 	    
 	    JLabel pseudoLabel = new JLabel("Pseudo : ");
 	    JLabel passwordLabel = new JLabel("Mot de passe :");
+	    JLabel membreLabel = new JLabel("RÃ´le membre (0, 1 ou 2)");
 	    
 	    pseudoLabel.setLabelFor(pseudoChamp);
 	    passwordLabel.setLabelFor(passwordChamp);
+	    membreLabel.setLabelFor(typeMembre);
 	    
-	    pseudoChamp.setPreferredSize(new Dimension(200,24));
-	    passwordChamp.setPreferredSize(new Dimension(200,24));
+	    pseudoChamp.setPreferredSize(new Dimension(100,24));
+	    passwordChamp.setPreferredSize(new Dimension(100,24));
+	    typeMembre.setPreferredSize(new Dimension(100,24));
 	    
 	    zoneCentre.add(pseudoLabel);
 	    zoneCentre.add(pseudoChamp);
 	    zoneCentre.add(passwordLabel);
 	    zoneCentre.add(passwordChamp);
+	    zoneCentre.add(membreLabel);
+	    zoneCentre.add(typeMembre);
 	    
 	    
 	    /*
@@ -78,39 +85,41 @@ public class FenetreServeur extends JFrame implements ActionListener {
 	     * 
 	     * **/
 	    
-	 
-	    zoneCentre.add(new JList(model));
+	    jl = new JList(model);
+	    zoneCentre.add(jl);
 	    
 	    
 	    /**
-	     * On crée une zone sud qui va contenir le bouton pour se connecter ou pour créer un compte
+	     * On crï¿½e une zone sud qui va contenir le bouton pour se connecter ou pour crï¿½er un compte
 	     * */
 	    JPanel zoneSud = new JPanel();
 	    zoneSud.add(boutonConnexion);
 	    zoneSud.add(creerCompte);
-	    zoneSud.add(listeMembre);
+	    zoneSud.add(actualiser);
+	    zoneSud.add(bannirMembre);
 	    
 	    this.getContentPane().add(zoneCentre, BorderLayout.CENTER);
 	    this.getContentPane().add(zoneSud, BorderLayout.SOUTH);
 	    this.setVisible(true);
 	    boutonConnexion.addActionListener(this);
 	    creerCompte.addActionListener(this);
-	    listeMembre.addActionListener(this);
+	    actualiser.addActionListener(this);
+	    bannirMembre.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		System.out.println(this.s.getListeInscrit());
 		
-		//Si on a appuyé sur le bouton de connexion.
+		//Si on a appuyï¿½ sur le bouton de connexion.
 		if(e.getSource() == boutonConnexion){
-			model.removeAllElements();
-			//On appelle la méthode seConnecter du membre
+			
+			//On appelle la mï¿½thode seConnecter du membre
 			if(this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText()) != null){
-				Membre m = this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText()); //On récupère le membre (on s'est assuré avant d'un résultat non null on peut donc manipuler sans crainte)
-				FenetreMembreConnecte fmc = new FenetreMembreConnecte(m); //On ouvre une fenêtre pour le membre qui se co
-				s.connecterUnMembre(m); //On inscrit le membre à la liste des connectés
+				Membre m = this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText()); //On rï¿½cupï¿½re le membre (on s'est assurï¿½ avant d'un rï¿½sultat non null on peut donc manipuler sans crainte)
+				FenetreMembreConnecte fmc = new FenetreMembreConnecte(m); //On ouvre une fenï¿½tre pour le membre qui se co
+				s.connecterUnMembre(m); //On inscrit le membre ï¿½ la liste des connectï¿½s
 			}
 			
 			else{
@@ -121,27 +130,53 @@ public class FenetreServeur extends JFrame implements ActionListener {
 				         JOptionPane.ERROR_MESSAGE);
 				
 			}
-			for(int i=0;i<s.getListeInscrit().size();i++){
-		    	model.add(i, s.getListeInscrit().get(i).getPseudo());
-		    }
+			actualiserListeMembre();
 		}
 		
 		
 		if(e.getSource() == creerCompte){
-			model.removeAllElements();
+			
 			FabriqueMembre fm = FabriqueMembre.getInstance();
-			this.s.inscrireUnMembre(fm.getMembre("Administrateur", "A", "password", s));
-			for(int i=0;i<s.getListeInscrit().size();i++){
-		    	model.add(i, s.getListeInscrit().get(i).getPseudo());
-		    }
+			
+			//Si valeur Ã  1 le membre est un certifiÃ©
+			//Si valeur Ã  2 le membres est admin
+			//Sinon on crÃ©e un membre
+			if(typeMembre.getText().equals("1")) {
+				fm.getMembre("1", pseudoChamp.getText(), passwordChamp.getText(), s);
+			}
+			else if(typeMembre.getText().equals("2")) {
+				fm.getMembre("2", pseudoChamp.getText(), passwordChamp.getText(), s);
+			}
+			else{
+				fm.getMembre("Administrateur", pseudoChamp.getText(), passwordChamp.getText(), s);
+			}
+			
+			actualiserListeMembre();
 		}
 		
-		if(e.getSource() == listeMembre){
-			model.removeAllElements();
-			for(int i=0;i<s.getListeInscrit().size();i++){
-		    	model.add(i, s.getListeInscrit().get(i).getPseudo());
-		    }
+		if(e.getSource() == actualiser){
+			actualiserListeMembre();
 		}
+		
+		if(e.getSource() == bannirMembre){
+			//RÃ©cupÃ©rer avec le pseudo un membre
+			//Membre m = this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText());
+			for(int i=0; i<s.getListeInscrit().size(); i++){
+				if(s.getListeInscrit().get(i).getPseudo().equals(pseudoChamp.getText())){
+					Membre m = s.getListeInscrit().get(i);
+					s.bannirUnMembre(m);
+				}  
+			}
+			actualiserListeMembre();
+		}
+	}
+	
+	
+	private void actualiserListeMembre() {
+		model.removeAllElements();
+		for(int i=0;i<s.getListeInscrit().size();i++){
+	    	model.add(i, s.getListeInscrit().get(i).getPseudo() + "(" +s.getListeInscrit().get(i).getClass().getSimpleName() + ")");
+	    }
 	}
 
 }
