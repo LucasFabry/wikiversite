@@ -119,7 +119,9 @@ public class FenetreServeur extends JFrame implements ActionListener {
 			if(this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText()) != null){
 				Membre m = this.s.seConnecter(pseudoChamp.getText(), passwordChamp.getText()); //On r�cup�re le membre (on s'est assur� avant d'un r�sultat non null on peut donc manipuler sans crainte)
 				FenetreMembreConnecte fmc = new FenetreMembreConnecte(m); //On ouvre une fen�tre pour le membre qui se co
+				m.setFenetreMembre(fmc);
 				s.connecterUnMembre(m); //On inscrit le membre � la liste des connect�s
+			
 			}
 			
 			else{

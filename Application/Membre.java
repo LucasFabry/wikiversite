@@ -2,13 +2,14 @@ package Application;
 
 import java.util.ArrayList;
 
+import interfaceGraphique.FenetreMembreConnecte;
 import interfaceGraphique.FenetreServeur;
 
 public class Membre {
 	private String pseudo;
 	private String password;
 	private int niveauReputation;
-	private FenetreServeur fenetreMembre;
+	private FenetreMembreConnecte fenetreMembre;
 	private ArrayList<Cours> listeCoursFav = new ArrayList<Cours>();
 	private Serveur serveur;
 	
@@ -96,7 +97,12 @@ public class Membre {
 		return false;
 	}
 	
-	
+	public void setFenetreMembre(FenetreMembreConnecte fmc) {
+		this.fenetreMembre = fmc;
+	}
+	public void notifier() {
+		fenetreMembre.majListeCours();
+	}
 	
 	
 }

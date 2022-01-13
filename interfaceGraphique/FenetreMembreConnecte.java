@@ -18,6 +18,7 @@ import Application.Administrateur;
 import Application.Cours;
 import Application.Membre;
 import Application.MembreCertifie;
+import Application.ObservateurConcret;
 import Application.Serveur;
 
 public class FenetreMembreConnecte extends JFrame implements ActionListener {
@@ -114,6 +115,7 @@ public class FenetreMembreConnecte extends JFrame implements ActionListener {
 			for(int i =0; i<Serveur.getInstance().getListeCours().size(); i++) {
 				listeCours.add(i, Serveur.getInstance().getListeCours().get(i).getNomCours());
 			}
+			Serveur.getInstance().getOb().actualiser();
 			
 		}
 		
@@ -130,6 +132,13 @@ public class FenetreMembreConnecte extends JFrame implements ActionListener {
 			}
 		}
 		
+	}
+	
+	public void majListeCours() {
+		listeCours.removeAllElements();
+		for(int i =0; i<Serveur.getInstance().getListeCours().size(); i++) {
+			listeCours.add(i, Serveur.getInstance().getListeCours().get(i).getNomCours());
+		}
 	}
 
 }

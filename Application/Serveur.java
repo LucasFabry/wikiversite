@@ -19,13 +19,16 @@ public final class Serveur {
 	private ArrayList<Membre> listeMembresBannis = new ArrayList<Membre>();
 	private ArrayList<MembreCertifie> listeMembreCertifie = new ArrayList<MembreCertifie>();
 	private ArrayList<Cours> listeCoursDispo = new ArrayList<Cours>();
-	
-	private Serveur(){}
+	private ObservateurConcret ob;
+	private Serveur(){
+		this.ob = new ObservateurConcret();
+	}
 	
 	public static Serveur getInstance() {
         if (instance == null) {
             instance = new Serveur();
             new FenetreServeur(instance);
+            
         }
     
         return instance;
@@ -37,8 +40,12 @@ public final class Serveur {
 	
 	public void inscrireUnMembre(Membre m){
 		this.listeMembres.add(m);
+		ob.inscrireALecoute(m);
 	}
 	
+	public Observateur getOb() {
+		return this.ob;
+	}
 
 	/**
 	 * 
